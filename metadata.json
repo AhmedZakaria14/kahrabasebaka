@@ -1,0 +1,6 @@
+{
+  "name": "فني كهرباء وسباكة الرياض",
+  "description": "الموقع الإلكتروني المتكامل لخدمات صيانة وتركيب وتأسيس الكهرباء والسباكة في جميع أحياء الرياض – المملكة العربية السعودية.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
