@@ -49,7 +49,7 @@ export function FaqSection({ customFaqs }: { customFaqs?: { question: string; an
               placeholder="ابحث في الأسئلة الشائعة..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-300 rounded-xl text-xs sm:text-sm focus:border-blue-600 outline-none shadow-sm transition"
+              className="w-full min-h-[44px] pl-10 pr-4 py-2.5 bg-white border border-slate-300 rounded-xl text-base sm:text-sm focus:border-blue-600 outline-none shadow-sm transition"
             />
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           </div>
@@ -69,7 +69,7 @@ export function FaqSection({ customFaqs }: { customFaqs?: { question: string; an
                 <button
                   id={`faq-toggle-btn-${index}`}
                   onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full p-4 sm:p-5 text-right flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-slate-900 hover:text-blue-700 transition"
+                  className="w-full min-h-[52px] p-4 sm:p-5 text-right flex items-center justify-between gap-3 sm:gap-4 font-bold text-sm sm:text-base text-slate-900 hover:text-blue-700 active:bg-slate-50 transition"
                   aria-expanded={isOpen}
                 >
                   <span className="leading-snug">{faq.question}</span>

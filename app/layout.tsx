@@ -17,6 +17,13 @@ const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
   display: 'swap',
 });
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#0f172a',
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.SITE_URL),
   title: {
@@ -105,7 +112,7 @@ export default function RootLayout({
       <body className={`${ibmPlexSansArabic.className} min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-amber-400 selection:text-slate-950`}>
         <ScrollProgress />
         <Header />
-        <main className="flex-1">
+        <main className="flex-1 pb-20 md:pb-0">
           {children}
         </main>
         <Footer />

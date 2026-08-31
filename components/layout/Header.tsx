@@ -30,9 +30,21 @@ export function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
@@ -271,7 +283,8 @@ export function Header() {
                               <Link
                                 key={child.href}
                                 href={child.href}
-                                className="block p-2.5 rounded-lg text-xs font-semibold text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition"
+                                onClick={closeMobileMenu}
+                                className="block p-3 rounded-lg text-xs font-semibold text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition"
                               >
                                 {child.title}
                               </Link>
@@ -286,6 +299,7 @@ export function Header() {
                     <Link
                       key={item.href}
                       href={item.href}
+                      onClick={closeMobileMenu}
                       className="block p-3.5 rounded-xl text-sm font-bold text-slate-800 hover:text-blue-600 hover:bg-blue-50 transition"
                     >
                       {item.title}

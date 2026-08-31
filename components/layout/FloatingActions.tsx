@@ -64,22 +64,36 @@ export function FloatingActions() {
       {/* Floating Bottom Bar on Mobile for Quick Call & Booking */}
       <div 
         id="mobile-bottom-floating-bar"
-        className="md:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-2.5 shadow-2xl flex items-center gap-3"
+        className="md:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur-md border-t border-slate-200/90 px-3 pt-2 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-4px_20px_rgba(0,0,0,0.08)] flex items-center gap-2"
       >
         <button
           id="mobile-sticky-order-btn"
           onClick={() => openContactModal()}
-          className="flex-1 py-3 bg-gradient-to-r from-blue-700 to-indigo-800 text-white font-bold text-sm rounded-xl shadow-md flex items-center justify-center gap-2 active:scale-98 transition"
+          className="flex-1 min-h-[48px] py-3 bg-gradient-to-r from-blue-700 to-indigo-800 active:from-blue-800 active:to-indigo-900 text-white font-bold text-sm rounded-xl shadow-md flex items-center justify-center gap-2 active:scale-95 transition"
         >
           <Wrench className="w-4 h-4 text-amber-300" />
           <span>اطلب فني للرياض</span>
         </button>
 
+        {siteConfig.isWhatsAppConfigured() ? (
+          <a
+            id="mobile-sticky-whatsapp-btn"
+            href={siteConfig.getWhatsAppHref()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="min-h-[48px] px-3.5 bg-[#25D366] hover:bg-[#1EBE5D] active:bg-[#1bb054] text-white font-bold text-sm rounded-xl shadow-md flex items-center justify-center gap-1.5 active:scale-95 transition"
+            aria-label="محادثة واتساب"
+          >
+            <MessageSquare className="w-4 h-4 fill-white/20" />
+            <span className="hidden xs:inline">واتساب</span>
+          </a>
+        ) : null}
+
         <a
           id="mobile-sticky-phone-btn"
           href={siteConfig.getPhoneHref()}
           onClick={handlePhoneClick}
-          className="py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-xl shadow-md flex items-center justify-center gap-1.5 active:scale-98 transition"
+          className="min-h-[48px] px-4 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-sm rounded-xl shadow-md flex items-center justify-center gap-1.5 active:scale-95 transition"
           aria-label="اتصال مباشر"
         >
           <Phone className="w-4 h-4" />

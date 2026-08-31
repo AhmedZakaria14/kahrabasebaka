@@ -77,7 +77,7 @@ export function QuickCostEstimator() {
 
           {/* Interactive Form Card (7 cols) */}
           <ScrollReveal animation="slide-left" className="lg:col-span-7">
-            <div className="bg-white text-slate-900 rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-100">
+            <div className="bg-white text-slate-900 rounded-3xl p-4 sm:p-8 shadow-2xl border border-slate-100">
               <form onSubmit={handleDiagnose} className="space-y-4">
                 
                 {/* Category Switch */}
@@ -85,20 +85,20 @@ export function QuickCostEstimator() {
                   <label className="block text-xs font-bold text-slate-700 mb-2">
                     1. المجال الرئيسي للعطل:
                   </label>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-2 sm:gap-3">
                     <button
                       type="button"
                       onClick={() => {
                         setCategory('electrical');
                         setIssueType(electricalIssues[0]);
                       }}
-                      className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm border transition-all ${
+                      className={`min-h-[48px] flex items-center justify-center gap-2 py-3 px-3 sm:px-4 rounded-xl font-bold text-xs sm:text-sm border transition-all active:scale-95 ${
                         category === 'electrical'
-                          ? 'bg-amber-50 border-amber-400 text-amber-900 shadow-sm'
+                          ? 'bg-amber-50 border-amber-400 text-amber-900 shadow-sm ring-2 ring-amber-400/20'
                           : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                       }`}
                     >
-                      <Zap className="w-4 h-4 text-amber-500 fill-amber-500" />
+                      <Zap className="w-4 h-4 text-amber-500 fill-amber-500 shrink-0" />
                       <span>خدمات الكهرباء</span>
                     </button>
 
@@ -108,13 +108,13 @@ export function QuickCostEstimator() {
                         setCategory('plumbing');
                         setIssueType(plumbingIssues[0]);
                       }}
-                      className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm border transition-all ${
+                      className={`min-h-[48px] flex items-center justify-center gap-2 py-3 px-3 sm:px-4 rounded-xl font-bold text-xs sm:text-sm border transition-all active:scale-95 ${
                         category === 'plumbing'
-                          ? 'bg-sky-50 border-sky-400 text-sky-900 shadow-sm'
+                          ? 'bg-sky-50 border-sky-400 text-sky-900 shadow-sm ring-2 ring-sky-400/20'
                           : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
                       }`}
                     >
-                      <Droplet className="w-4 h-4 text-sky-500 fill-sky-500" />
+                      <Droplet className="w-4 h-4 text-sky-500 fill-sky-500 shrink-0" />
                       <span>خدمات السباكة</span>
                     </button>
                   </div>
@@ -128,7 +128,7 @@ export function QuickCostEstimator() {
                   <select
                     value={issueType}
                     onChange={(e) => setIssueType(e.target.value)}
-                    className="w-full p-3 bg-slate-50 border border-slate-300 rounded-xl text-xs sm:text-sm font-medium focus:bg-white focus:border-blue-600 outline-none transition"
+                    className="w-full min-h-[44px] p-3 bg-slate-50 border border-slate-300 rounded-xl text-base sm:text-sm font-medium focus:bg-white focus:border-blue-600 outline-none transition"
                   >
                     {currentIssues.map((issue) => (
                       <option key={issue} value={issue}>
@@ -147,7 +147,7 @@ export function QuickCostEstimator() {
                     <select
                       value={propertyType}
                       onChange={(e) => setPropertyType(e.target.value)}
-                      className="w-full p-3 bg-slate-50 border border-slate-300 rounded-xl text-xs sm:text-sm font-medium focus:bg-white focus:border-blue-600 outline-none transition"
+                      className="w-full min-h-[44px] p-3 bg-slate-50 border border-slate-300 rounded-xl text-base sm:text-sm font-medium focus:bg-white focus:border-blue-600 outline-none transition"
                     >
                       <option value="شقة سكنية">شقة سكنية</option>
                       <option value="فيلا سكنية">فيلا سكنية / دوبلكس</option>
@@ -164,7 +164,7 @@ export function QuickCostEstimator() {
                     <select
                       value={district}
                       onChange={(e) => setDistrict(e.target.value)}
-                      className="w-full p-3 bg-slate-50 border border-slate-300 rounded-xl text-xs sm:text-sm font-medium focus:bg-white focus:border-blue-600 outline-none transition"
+                      className="w-full min-h-[44px] p-3 bg-slate-50 border border-slate-300 rounded-xl text-base sm:text-sm font-medium focus:bg-white focus:border-blue-600 outline-none transition"
                     >
                       <option value="شمال الرياض">شمال الرياض (الملقا، الياسمين، النرجس...)</option>
                       <option value="شرق الرياض">شرق الرياض (الروضة، قرطبة، الرمال...)</option>
@@ -176,13 +176,13 @@ export function QuickCostEstimator() {
                 </div>
 
                 {/* Submit button */}
-                <div className="pt-3">
+                <div className="pt-2">
                   <motion.button
                     id="cost-estimator-submit-btn"
                     whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.99 }}
+                    whileTap={{ scale: 0.98 }}
                     type="submit"
-                    className="w-full py-4 px-6 bg-gradient-to-r from-blue-700 via-blue-800 to-indigo-800 hover:from-blue-800 hover:to-indigo-900 text-white font-black text-sm rounded-xl shadow-lg shadow-blue-700/20 transition-all flex items-center justify-center gap-2"
+                    className="w-full min-h-[48px] py-3.5 sm:py-4 px-6 bg-gradient-to-r from-blue-700 via-blue-800 to-indigo-800 hover:from-blue-800 hover:to-indigo-900 active:from-blue-900 active:to-indigo-950 text-white font-black text-sm rounded-xl shadow-lg shadow-blue-700/20 transition-all flex items-center justify-center gap-2"
                   >
                     <Send className="w-4 h-4 text-amber-300" />
                     <span>طلب معاينة الفني لهذا العطل الآن</span>
