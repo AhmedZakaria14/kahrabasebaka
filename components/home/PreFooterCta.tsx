@@ -17,16 +17,19 @@ export function PreFooterCta() {
 
   return (
     <section className="py-16 sm:py-20 bg-gradient-to-r from-blue-900 via-indigo-950 to-slate-950 text-white text-right relative overflow-hidden">
-      {/* Animated Glow shapes */}
+      {/* Background glow: static on mobile, animated on desktop */}
+      <div className="md:hidden absolute top-0 right-1/3 w-64 h-64 bg-blue-500/15 rounded-full blur-2xl pointer-events-none" />
+      <div className="md:hidden absolute bottom-0 left-1/3 w-64 h-64 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
+
       <motion.div 
         animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.25, 0.15] }}
         transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-0 right-1/3 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"
+        className="hidden md:block absolute top-0 right-1/3 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"
       />
       <motion.div 
         animate={{ scale: [1, 1.25, 1], opacity: [0.1, 0.2, 0.1] }}
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-        className="absolute bottom-0 left-1/3 w-80 h-80 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"
+        className="hidden md:block absolute bottom-0 left-1/3 w-80 h-80 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"
       />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 relative text-center">

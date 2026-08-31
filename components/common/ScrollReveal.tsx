@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, type HTMLMotionProps, type Variants } from 'motion/react';
 
 export type AnimationType = 
@@ -22,13 +22,14 @@ interface ScrollRevealProps extends HTMLMotionProps<'div'> {
   className?: string;
 }
 
+// Lightweight, hardware-accelerated variants (subtle translation to eliminate mobile lag)
 const animationVariants: Record<AnimationType, Variants> = {
   'fade-up': {
-    hidden: { opacity: 0, y: 32 },
+    hidden: { opacity: 0, y: 16 },
     visible: { opacity: 1, y: 0 },
   },
   'fade-down': {
-    hidden: { opacity: 0, y: -32 },
+    hidden: { opacity: 0, y: -16 },
     visible: { opacity: 1, y: 0 },
   },
   'fade-in': {
@@ -36,19 +37,19 @@ const animationVariants: Record<AnimationType, Variants> = {
     visible: { opacity: 1 },
   },
   'slide-right': {
-    hidden: { opacity: 0, x: 40 },
+    hidden: { opacity: 0, x: 20 },
     visible: { opacity: 1, x: 0 },
   },
   'slide-left': {
-    hidden: { opacity: 0, x: -40 },
+    hidden: { opacity: 0, x: -20 },
     visible: { opacity: 1, x: 0 },
   },
   'scale-up': {
-    hidden: { opacity: 0, scale: 0.92, y: 16 },
+    hidden: { opacity: 0, scale: 0.96, y: 8 },
     visible: { opacity: 1, scale: 1, y: 0 },
   },
   'zoom-in': {
-    hidden: { opacity: 0, scale: 0.85 },
+    hidden: { opacity: 0, scale: 0.94 },
     visible: { opacity: 1, scale: 1 },
   },
 };
@@ -57,11 +58,31 @@ export function ScrollReveal({
   children,
   animation = 'fade-up',
   delay = 0,
-  duration = 0.55,
+  duration = 0.4,
   once = true,
   className = '',
   ...props
 }: ScrollRevealProps) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile, { passive: true });
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // On mobile devices, render with lightweight instant fade to prevent any scroll lag
+  if (isMobile) {
+    return (
+      <div className={`transition-opacity duration-300 ${className}`} {...(props as React.HTMLAttributes<HTMLDivElement>)}>
+        {children}
+      </div>
+    );
+  }
+
   const selectedVariant = animationVariants[animation] || animationVariants['fade-up'];
 
   return (
@@ -69,13 +90,14 @@ export function ScrollReveal({
       variants={selectedVariant}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, margin: '-50px' }}
+      viewport={{ once: true, amount: 0.1, margin: '0px' }}
       transition={{
         duration,
         delay,
-        ease: [0.21, 0.47, 0.32, 0.98],
+        ease: [0.25, 0.1, 0.25, 1],
       }}
       className={className}
+      style={{ willChange: 'opacity, transform' }}
       {...props}
     >
       {children}
@@ -93,17 +115,36 @@ interface StaggerContainerProps extends HTMLMotionProps<'div'> {
 
 export function StaggerContainer({
   children,
-  staggerChildren = 0.1,
+  staggerChildren = 0.06,
   delayChildren = 0,
   className = '',
   once = true,
   ...props
 }: StaggerContainerProps) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile, { passive: true });
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  if (isMobile) {
+    return (
+      <div className={className} {...(props as React.HTMLAttributes<HTMLDivElement>)}>
+        {children}
+      </div>
+    );
+  }
+
   return (
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, margin: '-60px' }}
+      viewport={{ once: true, amount: 0.05, margin: '0px' }}
       variants={{
         hidden: {},
         visible: {
@@ -132,9 +173,28 @@ export function StaggerItem({
   children,
   className = '',
   animation = 'fade-up',
-  duration = 0.5,
+  duration = 0.35,
   ...props
 }: StaggerItemProps) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile, { passive: true });
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  if (isMobile) {
+    return (
+      <div className={className} {...(props as React.HTMLAttributes<HTMLDivElement>)}>
+        {children}
+      </div>
+    );
+  }
+
   const selectedVariant = animationVariants[animation] || animationVariants['fade-up'];
 
   return (
@@ -142,9 +202,10 @@ export function StaggerItem({
       variants={selectedVariant}
       transition={{
         duration,
-        ease: [0.21, 0.47, 0.32, 0.98],
+        ease: [0.25, 0.1, 0.25, 1],
       }}
       className={className}
+      style={{ willChange: 'opacity, transform' }}
       {...props}
     >
       {children}

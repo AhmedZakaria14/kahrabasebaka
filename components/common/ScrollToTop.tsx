@@ -7,9 +7,21 @@ import { ArrowUp } from 'lucide-react';
 export function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(false);
   const { scrollYProgress } = useScroll();
 
   useEffect(() => {
+    const checkScreen = () => {
+      setIsDesktop(window.innerWidth >= 640);
+    };
+    checkScreen();
+    window.addEventListener('resize', checkScreen, { passive: true });
+    return () => window.removeEventListener('resize', checkScreen);
+  }, []);
+
+  useEffect(() => {
+    if (!isDesktop) return;
+
     const toggleVisibility = () => {
       if (window.scrollY > 300) {
         setIsVisible(true);
@@ -20,13 +32,17 @@ export function ScrollToTop() {
 
     window.addEventListener('scroll', toggleVisibility, { passive: true });
     return () => window.removeEventListener('scroll', toggleVisibility);
-  }, []);
+  }, [isDesktop]);
 
   useEffect(() => {
+    if (!isDesktop) return;
+
     return scrollYProgress.on('change', (latest) => {
       setScrollProgress(latest);
     });
-  }, [scrollYProgress]);
+  }, [scrollYProgress, isDesktop]);
+
+  if (!isDesktop) return null;
 
   const scrollToTop = () => {
     window.scrollTo({

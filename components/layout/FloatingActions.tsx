@@ -24,10 +24,10 @@ export function FloatingActions() {
 
   return (
     <>
-      {/* Floating WhatsApp Button (Fixed bottom right / left in RTL) */}
+      {/* Floating WhatsApp Button (Hidden on Mobile, Visible on Desktop/Tablet) */}
       <div 
         id="floating-whatsapp-container"
-        className="fixed bottom-6 left-6 z-40 flex flex-col items-start gap-2 select-none"
+        className="hidden md:flex fixed bottom-6 left-6 z-40 flex-col items-start gap-2 select-none"
       >
         {/* Helper Tooltip Badge */}
         {showTooltip && (

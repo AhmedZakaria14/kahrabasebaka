@@ -28,13 +28,17 @@ export function HeroSection() {
       {/* Decorative background grid and glowing circles */}
       <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:24px_24px] opacity-30 pointer-events-none"></div>
       
+      {/* Static glow on mobile, smooth animated glow on desktop */}
+      <div className="md:hidden absolute top-1/4 right-0 w-64 h-64 bg-blue-600/15 rounded-full blur-2xl pointer-events-none" />
+      <div className="md:hidden absolute bottom-10 left-0 w-64 h-64 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
+      
       <motion.div 
         animate={{ 
           scale: [1, 1.15, 1],
           opacity: [0.12, 0.22, 0.12]
         }}
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/4 right-0 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"
+        className="hidden md:block absolute top-1/4 right-0 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"
       />
       
       <motion.div 
@@ -43,7 +47,7 @@ export function HeroSection() {
           opacity: [0.1, 0.18, 0.1]
         }}
         transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-        className="absolute bottom-10 left-0 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"
+        className="hidden md:block absolute bottom-10 left-0 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
